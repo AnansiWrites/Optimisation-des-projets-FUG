@@ -505,6 +505,49 @@ body.locked{overflow:hidden}
 @media (max-width:900px){.bgrid{grid-template-columns:minmax(0,1fr)}.bside{position:static;order:2}.bgrid>div:first-child{display:contents}.controls{order:1;margin-bottom:0}.btable{order:3}}
 @media (max-width:560px){.scen{grid-template-columns:1fr}.bline{padding:12px 14px}.bcat{padding:10px 14px}}
 
+/* mecene schema */
+#mecenes .panel{margin-top:24px}
+.scatter{display:grid;grid-template-columns:minmax(0,1fr) minmax(60px,.7fr) minmax(0,1fr);align-items:center;gap:0;background:var(--bg-soft);border:1px solid var(--line);border-radius:24px;padding:26px}
+.senders{display:grid;gap:22px}
+.senders span{padding:14px 16px;border-radius:14px;background:var(--card);border:2px dashed var(--alert);font-weight:700;color:var(--forest);font-size:.92rem;text-align:center}
+.conv{width:100%;height:220px;color:var(--alert)}
+.company{display:grid;justify-items:center;text-align:center;gap:6px;padding:22px 16px;border-radius:20px;background:var(--card);border:2px solid var(--alert)}
+.company svg{width:40px;height:40px;color:var(--alert)}
+.company b{color:var(--forest);font-size:1.05rem}
+.company small{color:var(--alert);font-weight:700;font-size:.82rem}
+.scap{margin-top:14px;color:var(--muted);font-size:.95rem;max-width:70ch}
+.path{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr) 34px minmax(0,1.6fr);align-items:center}
+.pstep{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px 20px 20px;transition:transform .25s,box-shadow .25s}
+.pstep:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.pstep .pn{position:absolute;top:-14px;left:18px;width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.85rem}
+.pstep h4{font-size:1.1rem;margin-bottom:8px}
+.pstep p{font-size:.9rem;color:var(--muted)}
+.pstep ul{margin:8px 0 0;padding-left:18px;font-size:.9rem}
+.pstep.cat{background:var(--forest);color:var(--bg);border-color:var(--forest)}
+.pstep.cat h4{color:var(--bg)}
+:root[data-theme="dark"] .pstep.cat{background:#d9f2ea;color:#0b1c16}
+:root[data-theme="dark"] .pstep.cat h4{color:#0b1c16}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pstep.cat{background:#d9f2ea;color:#0b1c16}:root:not([data-theme="light"]) .pstep.cat h4{color:#0b1c16}}
+.cg{margin-top:12px}
+.cg b{display:block;font-size:.8rem;color:var(--leaf);margin-bottom:6px}
+:root[data-theme="dark"] .cg b{color:#0e7a58}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cg b{color:#0e7a58}}
+.chipset{display:flex;flex-wrap:wrap;gap:6px}
+.chipset span{font-size:.8rem;font-weight:600;padding:6px 10px;border-radius:999px;background:rgba(165,204,120,.18);border:1px solid rgba(165,204,120,.35);transition:background .2s,color .2s}
+.chipset span:hover{background:var(--leaf);color:#0b1c16}
+.parrow{align-self:center;justify-self:center;width:24px;height:24px;border-top:4px solid var(--leaf);border-right:4px solid var(--leaf);transform:rotate(45deg);border-radius:2px}
+@media (max-width:900px){
+  .path{grid-template-columns:minmax(0,1fr);gap:0}
+  .parrow{transform:rotate(135deg);margin:14px 0 18px}
+}
+@media (max-width:640px){
+  .scatter{grid-template-columns:minmax(0,1fr);padding:18px;gap:0}
+  .senders{gap:10px}
+  .conv{display:none}
+  .company{position:relative;margin-top:44px}
+  .company::before{content:"";position:absolute;top:-34px;left:50%;width:18px;height:18px;border-right:3px dashed var(--alert);border-bottom:3px dashed var(--alert);transform:translateX(-50%) rotate(45deg)}
+}
+
 /* rings */
 .rings{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:30px}
 .rings svg{width:100%;height:auto;aspect-ratio:1/1;max-width:440px;margin:0 auto;display:block}
@@ -1010,9 +1053,37 @@ footer .logo-chip img{height:56px}
   <div class="wrap">
     <div class="sec-head">
       <span class="step"><b>10</b>Mécénat</span>
-      <h2>Une seule offre, pour les deux médias</h2>
-      <p class="lead">Plutôt que trois dossiers auprès des mêmes entreprises, un partenariat média unique qui couvre le podcast, le magazine et leurs déclinaisons. Les contreparties suivent les quatre cercles de mécènes. Touchez un cercle.</p>
+      <h2>Un mécène, plusieurs opportunités</h2>
+      <p class="lead">Plutôt que de solliciter les mêmes entreprises pour le podcast, pour le magazine et pour la Fondation, on ouvre une seule porte, puis on présente tout ce qu'il est possible de soutenir.</p>
     </div>
+    <div class="tabs" role="tablist" aria-label="Comparer les deux approches">
+      <button role="tab" id="mt-now" aria-selected="false" aria-controls="mp-now">Aujourd'hui</button>
+      <button role="tab" id="mt-next" aria-selected="true" aria-controls="mp-next">Avec une offre unique</button>
+    </div>
+    <div id="mp-now" class="panel" role="tabpanel" aria-labelledby="mt-now" hidden>
+      <div class="scatter">
+        <div class="senders"><span>Dossier du podcast</span><span>Dossier de Lemag'</span><span>Levée de fonds de la Fondation</span></div>
+        <svg class="conv" viewBox="0 0 200 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50 C100 50 100 150 200 150M0 150 L200 150M0 250 C100 250 100 150 200 150" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="6 6" vector-effect="non-scaling-stroke"/></svg>
+        <div class="company"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 21V9l6-4v16M9 21V9h12v12M13 13h4M13 17h4"/></svg><b>Une entreprise</b><small>trois demandes, trois documents</small></div>
+      </div>
+      <p class="scap">Chaque projet frappe à la même porte avec sa propre demande. L'entreprise doit choisir, et la Fondation se fait concurrence à elle-même.</p>
+    </div>
+    <div id="mp-next" class="panel" role="tabpanel" aria-labelledby="mt-next">
+      <div class="path">
+        <article class="pstep"><span class="pn">1</span><h4>Un pied dans la porte</h4><p>Un premier engagement simple, visible vite :</p><ul><li>sponsoriser un épisode des Voix de l'UG</li><li>un encart dans Lemag'</li><li>venir témoigner au micro</li></ul></article>
+        <span class="parrow" aria-hidden="true"></span>
+        <article class="pstep"><span class="pn">2</span><h4>La relation s'installe</h4><p>Un interlocuteur unique à la Fondation, un suivi, des invitations : enregistrements, sorties de numéro, événements. L'entreprise découvre l'UG de l'intérieur.</p></article>
+        <span class="parrow" aria-hidden="true"></span>
+        <article class="pstep cat"><span class="pn">3</span><h4>Le catalogue des opportunités</h4>
+          <div class="cg"><b>Gagner en visibilité</b><div class="chipset"><span>Partenaire d'un rendez-vous thématique</span><span>Encart dans chaque numéro</span><span>Édition print internationale</span><span>Page mécènes du site</span></div></div>
+          <div class="cg"><b>Soutenir</b><div class="chipset"><span>Don financier</span><span>Mécénat de compétences</span><span>Don en nature</span><span>Un projet de recherche</span></div></div>
+          <div class="cg"><b>Recruter et former</b><div class="chipset"><span>Stages et alternance</span><span>Recrutement d'étudiant·es et d'alumni</span><span>Formation continue</span></div></div>
+        </article>
+      </div>
+      <p class="scap">Un premier geste accessible ouvre tout le catalogue. Chaque opportunité saisie renforce les autres, et la Fondation parle d'une seule voix.</p>
+    </div>
+    <h3 style="margin:56px 0 6px">Les contreparties, par cercle</h3>
+    <p class="note">Elles suivent les quatre cercles de mécènes. Touchez un cercle.</p>
     <div class="rings">
       <svg viewBox="0 0 400 400" width="400" height="400" role="group" aria-label="Les quatre cercles de mécènes">
         <circle data-r="3" cx="200" cy="200" r="190" fill="#d9f2ea" stroke="#fff" stroke-width="3" tabindex="0"/>
@@ -1147,7 +1218,7 @@ const C=[
  ["lemag","fragilisant","Liste de diffusion et RGPD","La liste de diffusion doit être redéfinie, sans mention du consentement des destinataires.","Envoyer un magazine sans consentement expose la Fondation et abîme la relation avec les lecteurs.","Comment recueille-t-on les consentements ?"],
  ["lemag","fragilisant","Une direction artistique à perfectionner","D'un numéro à l'autre, les couvertures ne sont pas toujours attractives et les contrastes pas toujours maîtrisés.","La couverture décide de l'ouverture. Un contraste faible gêne la lecture et l'accessibilité, en ligne comme en print.","Intègre-t-on la DA dans la refonte prioritaire ?"],
  ["commun","bloquant","Ce ne sont pas des quick wins","46 200 € cumulés, dont 27 000 € de mécénat à trouver, des prestataires à recruter et une refonte complète.","Garder l'étiquette sans adapter le contenu crée des attentes que les projets ne peuvent pas tenir.","On garde l'appellation ? Alors on découpe (section 3)."],
- ["commun","fragilisant","Les mêmes mécènes, sollicités trois fois","Les deux fiches visent les mêmes filières (énergie, télécoms, BTP, banque-assurance, CCI), qui sont aussi celles de la levée de fonds 2027.","Trois dossiers différents auprès des mêmes entreprises usent la relation.","Construit-on une offre mécène unique ?"],
+ ["commun","fragilisant","Les mêmes mécènes, sollicités trois fois","Le podcast, le magazine et la levée de fonds 2027 de la Fondation visent les mêmes filières : énergie, télécoms, BTP, banque-assurance.","Une même entreprise pourrait recevoir trois demandes, par trois documents différents. La relation s'use avant d'avoir commencé.","Construit-on une offre mécène unique ?"],
  ["commun","fragilisant","Des fiches figées en février","Les deux fiches datent du 2 février 2026 et n'ont pas été mises à jour.","En octobre, personne ne sait précisément ce qui a été fait, ce qui a glissé et pourquoi.","Qui établit le prévu/réalisé ?"],
  ["commun","opportunite","Deux médias qui ne se parlent pas","Aucun lien prévu entre les invités du podcast et les entretiens du magazine.","Une même collecte peut nourrir les deux, et régler le manque de contenus.","Mutualise-t-on la collecte ?"],
  ["commun","fragilisant","Un rayonnement limité au territoire","Les deux fiches renvoient l'international à plus tard : « à terme », « si besoin », « option ».","Le rayonnement extérieur est un objectif affiché des deux projets. Sans plan, il restera théorique.","Fixe-t-on une première action internationale en 2027 ?"],
